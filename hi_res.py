@@ -132,14 +132,14 @@ class ChatPDF:
             # # )
             # # Ensemble retriever
             # self.retriever = EnsembleRetriever(
-            #     retrievers=[compressed_dense, compressed_keyword],  # Explicit list of retrievers
-            #     weights=[0.6, 0.4]  # Matching number of weights to retrievers
+            #     retrievers=[compressed_dense, compressed_keyword],  
+            #     weights=[0.6, 0.4]  
             # )
 
             # Enhanced temporal-aware retriever setup
             similarity_retriever = self.vector_store.as_retriever(
                 search_type="similarity",
-                search_kwargs={"k": 25}  # Increased for better timeline coverage
+                search_kwargs={"k": 25}
             )
 
             # MMR for diversity (catches different types of content)  
@@ -148,11 +148,11 @@ class ChatPDF:
                 search_kwargs={
                     "k": 20,
                     "fetch_k": 60,  # Fetch many candidates
-                    "lambda_mult": 0.5  # More diversity to get timeline + legal analysis
+                    "lambda_mult": 0.5 
                 }
             )
 
-            # Keyword search (great for dates and names)
+            # Keyword search 
             keyword_retriever = BM25Retriever.from_documents(processed_chunks)
             keyword_retriever.k = 20
 
